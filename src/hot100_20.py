@@ -17,3 +17,23 @@ class Solution:
                     return False
         return len(tmp)==0
 
+
+
+class Solution2:
+    def isValid(self, s: str) -> bool:
+        """
+        只针对 ()()()括号的高效写法
+        :param s:
+        :return:
+        """
+
+        bol = 0
+        for c in s:
+            if c =="(":
+                bol+=1
+            else:
+                bol-=1
+            if bol<0:
+                return False
+        return bol==0
+
