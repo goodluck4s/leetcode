@@ -47,7 +47,7 @@ class Solution2:
             b= self.longestValidParentheses(s[:-1])
             return  a if a>b else b
 
-print(Solution2().longestValidParentheses("())"))
+print(Solution2().longestValidParentheses("(()))())("))
 
 
 #
@@ -82,8 +82,8 @@ class Solution:
 
         dp=[0]*len(s)
         for i in range(1,len(s)):
-            c = s[i]
-            if c == "(":
+
+            if s[i] == "(":
                 continue
             if s[i-1]==")":
                 if dp[i-1]>0 and i-dp[i-1]>0 and s[i-dp[i-1]-1]=="(":
