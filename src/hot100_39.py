@@ -28,50 +28,75 @@
 #   [3,5]
 # ]
 
+from typing import List
 
+# 标准答案
+class Solution2:
+    def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
+
+        def dfs(candidates, begin, size, path, res, target):
+            if target < 0:
+                return
+            if target == 0:
+                res.append(path)
+                return
+
+            for index in range(begin, size):
+                dfs(candidates, index, size, path + [candidates[index]], res, target - candidates[index])
+
+        size = len(candidates)
+        if size == 0:
+            return []
+        path = []
+        res = []
+        dfs(candidates, 0, size, path, res, target)
+        return res
+
+
+# 用不剪枝的回溯  会有bug就是 不同顺序的集合也会重复出现在res里
 class Solution:
     def combinationSum(self, candidates, target: int):
 
-        nums = sorted(candidates, reverse=True)
+        if not candidates:
+            return []
+
+        # candidates = sorted(candidates, reverse=False)
 
         res = []
-        tmp = []
-
-        def func(nums, tar, i):
-            if not nums:
+        tmp=[]
+        def func(b):
+            gap = target-sum(tmp)
+            if gap>0:
+                for i in range(b,len(candidates)):
+                    tmp.append(candidates[i])
+                    func(i)
+                if tmp:
+                    tmp.pop()
+            if gap<0:
+                tmp.pop()
                 return
-
-            if i >= len(nums):
-                tmp.clear()
-                func(nums[1:], tar, 0)
-                return
-            else:
-                if nums[i]>target:
-                    func(nums[1:], tar, 0)
-                    return
-                if nums[i]==target:
-                    res.append([nums[i]])
-                    func(nums[1:], tar, 0)
-                    return
-                tmp.append(nums[i])
-
-            now = sum(tmp)
-
-            if now == tar:
+            if gap==0:
                 res.append(tmp[:])
                 tmp.pop()
-                func(nums, tar, i + 1)
+                return
 
-            if now < tar:
-                func(nums, tar, i)
-
-            if now > tar:
-                tmp.pop()
-                func(nums, tar, i + 1)
-
-        func(nums, target, 0)
+        func(0)
 
         return res
 
 
-print(Solution().combinationSum([2,3,6,7], 7))
+
+print(Solution().combinationSum([1,2],3))
+
+# this_case_demo
+
+#                []
+#             /      \
+#           [1]       [2]
+#         /    \        \
+#      [1,1]    [1,2]      [2,2]
+#     /     \
+# [1,1,1]  [1,1,2]
+
+
+
