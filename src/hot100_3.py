@@ -25,31 +25,23 @@
 
 
 
-class Solution(object):
-    def lengthOfLongestSubstring(self, s):
-        """
-        :type s: str
-        :rtype: int
-        """
-        if s is None:
+class Solution:
+    def lengthOfLongestSubstring(self, s: str) -> int:
+        if not s:
             return 0
-        if len(s)<=1:
-            return len(s)
-        max_str_size = 0
-        char_set = set()
-        i,j=0,0
-        while i<len(s) and j<len(s):
 
-            if s[j] not in char_set:
-                char_set.add(s[j])
-                j+=1
-            else:
-                char_set.remove(s[i])
+        res = 0
+        i=0
+        tmp=[]
+        while i<len(s):
+            if s[i] not in tmp:
+                tmp.append(s[i])
                 i+=1
-
-            if len(char_set)>max_str_size:
-                max_str_size = len(char_set)
-        return max_str_size
+                if len(tmp)>res:
+                    res = len(tmp)
+            else:
+                del tmp[0]
+        return res
 
 
 print(Solution().lengthOfLongestSubstring("pwwkew"))
