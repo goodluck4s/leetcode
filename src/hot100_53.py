@@ -14,8 +14,6 @@
 
 
 # 回溯  解释对的  但是运行超时 2^n
-
-
 class Solution2:
 
     def maxSubArray(self, num) -> int:
@@ -29,7 +27,7 @@ print(Solution2().maxSubArray([-2, 1, -3, 4, -1, 2, 1, -5, 4]))
 
 
 # 动归
-class Solution:
+class Solution3:
     def maxSubArray(self, num) -> int:
         if len(num)<=1:
             return sum(num)
@@ -70,5 +68,31 @@ class Solution_inspect:
         return max(tmp)
 
 
+# 分治
+class Solution:
+    def maxSubArray(self, num) -> int:
+        if len(num)<=1:
+            return sum(num)
 
-print(Solution_inspect().maxSubArray([-2, 1, -3, 4, -1, 2, 1, -5, 4]))
+        def f(nums):
+            if len(nums)==1:
+                l = nums[0]
+                r = nums[0]
+                m = nums[0]
+                n = nums[0]
+                return l,r,m,n
+
+            mid = len(nums)//2
+            a_l,a_r,a_m,a_n = f(nums[:mid])
+            b_l,b_r,b_m,b_n = f(nums[mid:])
+            n = a_n+b_n  # 留n是为了求l r
+            l= max(a_l,a_n+b_l)  # 留 lr 是为了求m
+            r = max(b_r,b_n+a_r)  # 留 lr 是为了求m
+            m = max(a_m,b_m,a_r+b_l)
+            return l,r,m,n
+
+        return f(num)[-2]
+
+
+
+print(Solution().maxSubArray([-2, 1, -3, 4, -1, 2, 1, -5, 4]))
