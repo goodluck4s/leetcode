@@ -41,11 +41,86 @@ def hou(root):
         hou(root.right)
         print(root.val)
 
-zhong(_1)
+qian(_1)
 
 
 class Solution:
-    def inorderTraversal(self, root: TreeNode):
+    def zhongxu(self, root: TreeNode):
+        res = []
+        stack = []
+        index = root
+        while index or stack:
+            while index:
+                stack.append(index)
+                index = index.left
+
+            index = stack.pop()
+            res.append(index.val)
+            index = index.right
+
+        return res
+
+
+    def qianxu(self,root):
+        res=[]
+        stack=[]
+        index = root
+
+        while index or stack:
+            while index:
+                res.append(index.val)
+                stack.append(index)
+                index=index.left
+
+            index = stack.pop()
+            index = index.right
+        return res
+
+
+    def shendu(self,root):
+        if not root:
+            return
+        res=[]
+        stack=[]
+        stack.append(root)
+
+        while stack:
+            index = stack.pop()
+            res.append(index.val)
+            if index.right:
+                stack.append(index.right)
+            if index.left:
+                stack.append(index.left)
+        return res
+
+    def guangdu(self,root):
+        if not root:
+            return
+        res=[]
+        stack=[]
+        stack.append(root)
+
+        while stack:
+            index = stack.pop(0)
+            res.append(index.val)
+            if index.left:
+                stack.append(index.left)
+            if index.right:
+                stack.append(index.right)
+
+        return res
+
+
+
+
+
+print(Solution().guangdu(_1))
+
+
+
+
+
+
 
 
 
