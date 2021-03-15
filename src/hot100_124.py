@@ -42,3 +42,20 @@ class Solution:
         return self.maxSum
 
 
+import sys
+class Solution:
+    def __init__(self):
+        self._max_ret = -1 * sys.maxsize
+
+
+    def f(self,root):
+        if not root:
+            return 0
+        left_val = self.f(root.left)
+        right_val = self.f(root.right)
+        contrib = root.val + max(left_val, right_val)
+        _max_ret = max(root.val + left_val + right_val, self._max_ret)
+        return contrib
+
+
+
