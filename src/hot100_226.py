@@ -21,3 +21,16 @@ class Solution:
         root.right,root.left = left,right
 
         return root
+
+
+
+def f(root):
+    if not root:
+        return root
+
+    left = root.f(root.left)
+    right = root.f(root.right)
+    root.left,root.right = right,left
+
+    return root
+
