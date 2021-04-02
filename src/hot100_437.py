@@ -19,18 +19,21 @@ class Solution:
     def pathSum(self, root: TreeNode, sum: int) -> int:
 
         dic = {0:1}
+        res=0
 
-        def f(root,k,res):
+        def f(root,k):
+            nonlocal res
             if not root:
                 return
-            sum += root.val
-            if sum-root.val in dic:
-                res+=dic[sum-root.val]
+            k += root.val
+            if k-sum in dic:
+                res+=dic[k-sum]
 
-            dic[sum]=dic.get(sum,0)+1
+            dic[k-sum]=dic.get(k-sum,0)+1
 
-            f(root.left,sum,res)
-            f(root.right,sum,res)
-        res=0
-        f(root,sum,res)
+            f(root.left,k)
+            f(root.right,k)
+            dic[k - sum] = dic.get(k - sum, 0) -1
+
+        f(root,0)
         return res
