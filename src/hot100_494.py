@@ -5,22 +5,6 @@
 # 返回可以使最终数组和为目标数 S 的所有添加符号的方法数。
 
 
-class Solution2:
-    def findTargetSumWays(self, nums, S: int) -> int:
-        if not nums:
-            return 0
-        if len(nums) == 1:
-            t = 0
-            if nums[0] == S:
-                t += 1
-            if -1 * nums[0] == S:
-                t += 1
-            return t
-
-        return self.findTargetSumWays(nums[1:], S - nums[0]) + self.findTargetSumWays(nums[1:], S + nums[0])
-
-
-
 
 class Solution:
     def findTargetSumWays(self, nums, S: int) -> int:
@@ -42,12 +26,12 @@ class Solution:
         for i in range(1,len(nums)):
             for j in range(S-1000,S+1000):
 
-                a =dp[i-1][j-nums[i-1]]
-                b =dp[i-1][j+nums[i-1]]
+                a =dp[i-1][j-nums[i]]
+                b =dp[i-1][j+nums[i]]
                 dp[i][j] = a+b
 
         # print(dp)
         return dp[len(nums)-1][S]
 
 
-print(Solution().findTargetSumWays([1,0],1))
+print(Solution().findTargetSumWays([0,1],1))

@@ -49,3 +49,25 @@ class Solution:
 
 
 print(Solution().generateParenthesis(2))
+
+
+class Solution:
+    def generateParenthesis(self, n: int):
+        res=[]
+        tmp=[]
+        def f(l,r):
+            if len(tmp)==2*n:
+                res.append("".join(tmp))
+                return
+            if l<n:
+                tmp.append("<")
+                f(l+1,r)
+                tmp.pop()
+            if r<l:
+                tmp.append(">")
+                f(l, r + 1)
+                tmp.pop()
+        f(0,0)
+        return res
+
+print(Solution().generateParenthesis(2))

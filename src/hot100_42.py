@@ -91,3 +91,21 @@ class Solution:
 
 
 print(Solution().trap([3,2,1,0,2,3]))
+
+
+def func(height):
+
+    i,j=0,len(height)-1
+    l,r=height[0],height[-1]
+    res=0
+
+    while i<=j:
+        if height[i]<height[j]:
+            l=max(height[i],l)
+            res+=l-height[i]
+            i+=1
+        else:
+            r = max(r,height[j])
+            res+=r-height[j]
+            j-=1
+    return res

@@ -86,7 +86,7 @@ class Solution:
 
 
 
-print(Solution().combinationSum([1,2],3))
+print(Solution().combinationSum([2,3,6,7],7))
 
 # this_case_demo
 
@@ -98,5 +98,51 @@ print(Solution().combinationSum([1,2],3))
 #     /     \
 # [1,1,1]  [1,1,2]
 
+
+class Solution:
+    def combinationSum(self, candidates, target: int):
+
+        if not candidates:
+            return []
+
+        # candidates = sorted(candidates, reverse=False)
+
+        res = []
+        tmp=[]
+        def func(b):
+            if sum(tmp)>=target:
+                if sum(tmp)==target:
+                    res.append(tmp[:])
+
+                return
+            for i in range(b,len(candidates)):
+                tmp.append(candidates[i])
+                func(i)
+                tmp.pop()
+
+        func(0)
+        print(res)
+
+        return res
+
+
+Solution().combinationSum([2,3,6,7],7)
+
+
+def func(s):
+    res=[]
+    tmp=[]
+
+    def f(i):
+        if len(tmp)==i:
+            res.append("".join(tmp))
+            return
+        for j in range(i,len(s)):
+            tmp.append(s[j])
+            f(j+1)
+            tmp.pop()
+    f(0)
+    print(res)
+func("aab")
 
 

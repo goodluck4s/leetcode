@@ -22,3 +22,24 @@ class Solution:
 
 
 print(Solution().isMatch("ss","s*"))
+
+
+
+class Solution:
+    def isMatch(self, s: str, p: str) -> bool:
+        if len(p)==0:
+            return len(s)==0
+
+        if len(s)==0:
+            if p[-1]=="*" and len(p)==2:
+                return True
+            return len(p)==0
+
+        fim = s[0]==p[0] or p[0]=="."
+
+        if len(p)>=2 and p[1]=="*":
+            return (fim and self.isMatch(s[1:],p)) or self.isMatch(s,p[2:])
+        else:
+            return fim and self.isMatch(s[1:],p[1:])
+
+print(Solution().isMatch("asa","a.*a"))

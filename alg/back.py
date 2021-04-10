@@ -68,3 +68,24 @@ def func3(nums,k):
 
 print(func3([1,2,3,4,5,6,7],8))
 
+
+def func(nums):
+
+    res = [[nums[0]]]
+
+    def f(i,res):
+        n_res = []
+        for tmp in res:
+            for index in range(0, len(tmp) + 1):
+                a=tmp[:]
+                a.insert(index, nums[i])
+                n_res.append(a)
+        return n_res
+
+    for i in range(1, len(nums)):
+        res = f(i,res)
+    print(res)
+
+
+func([1, 2, 3])
+

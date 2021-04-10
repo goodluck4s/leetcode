@@ -32,19 +32,27 @@
 
 # 拓展内容 折半查找
 def bs(nums,tar):
-    i,j=0,len(nums)-1
+    i,j = 0,len(nums)-1
 
     while i<=j:
-        mid = (i + j) // 2
+        mid = (i+j)//2
         if nums[mid]==tar:
             return mid
-        if nums[mid]<tar:
-            i=mid+1
+        if nums[0] < nums[mid]:
+            # 左边有序
+            if nums[i] <=tar<= nums[mid]:
+                j=mid-1
+            else:
+                i=mid+1
         else:
-            j=mid-1
-    return -1
+            #右边有序
+            if nums[mid] <=tar<= nums[j]:
+                i=mid+1
+            else:
+                j=mid-1
 
-print(bs([1,2,3,4],4))
+
+print(bs([3,4,5,1,2],4))
 
 
 class Solution:

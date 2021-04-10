@@ -15,10 +15,11 @@ class Solution:
 
 
 
-    def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
+    def lowestCommonAncestor(self, root, p, q) -> 'TreeNode':
         res = None
 
         def f(root,p,q):
+            nonlocal res
             if not root:
                 return False
 
@@ -27,4 +28,9 @@ class Solution:
 
             
 
-            if (lr and rr) or (lr and )
+            if (lr and rr) or (( lr or rr ) and (root.val==q.val or root.val == p.val)):
+                res = root
+            return lr or rr or root.val==q.val or root.val == p.val
+
+        f(root,p,q)
+        return res
