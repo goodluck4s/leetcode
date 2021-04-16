@@ -58,13 +58,12 @@ class Solution2:
 
         def f(n1,n2):
             if n1 and n2:
-                res = n1.val == n2.val
-                res = res and f(n1.left,n2.right)
-                res = res and f(n1.right,n2.left)
-                return res
-            if n1==None and n2==None:
-                return True
-            return False
+                return n1.val==n2.val and f(n1.left,n2.right) and f(n1.right,n2.left)
+            else:
+                if n1 ==None and n2==None:
+                    return True
+                else:
+                    return False
 
         return f(root,root)
 
