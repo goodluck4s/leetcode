@@ -2,7 +2,6 @@
 # LRU
 # 缓存机制
 
-
 class DLinkedNode:
     def __init__(self, key=0, value=0):
         self.key = key
@@ -70,6 +69,4 @@ class LRUCache:
         node = self.tail.prev
         self.removeNode(node)
         return node
-
-
 
