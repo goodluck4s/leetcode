@@ -25,22 +25,38 @@
 
 
 
-class Solution:
-    def lengthOfLongestSubstring(self, s: str) -> int:
-        if not s:
-            return 0
+# class Solution:
+#     def lengthOfLongestSubstring(self, s: str) -> int:
+#         if not s:
+#             return 0
+#
+#         res = 0
+#         i=0
+#         tmp=[]
+#         while i<len(s):
+#             if s[i] not in tmp:
+#                 tmp.append(s[i])
+#                 i+=1
+#                 if len(tmp)>res:
+#                     res = len(tmp)
+#             else:
+#                 del tmp[0]
+#         return res
 
+
+class Solution:
+    def lengthOfLongestSubstring(self, s) -> int:
+        dic = {}
+        i, j = 0, 0
         res = 0
-        i=0
-        tmp=[]
-        while i<len(s):
-            if s[i] not in tmp:
-                tmp.append(s[i])
-                i+=1
-                if len(tmp)>res:
-                    res = len(tmp)
-            else:
-                del tmp[0]
+        while j < len(s):
+            while  j < len(s) and s[j] not in dic:
+                dic[s[j]] = 0
+                j = j + 1
+                res = max(res, len(dic))
+                continue
+            dic.pop(s[i])
+            i += 1
         return res
 
 

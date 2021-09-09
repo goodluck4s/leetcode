@@ -18,32 +18,29 @@
 #
 
 # 中心扩展
-class Solution2:
+class Solution:
     def longestPalindrome(self, s: str) -> str:
-        if s is None:
-            return None
-        if len(s)<=1:
+        if s is None or len(s)<=1:
             return s
-        tmp_a=0
-        tmp_b = 0
-        for i in range(len(s)):
-            a,b = self.fuc(s,i,i)
-            a2,b2 = self.fuc(s,i,i+1)
-            if b-a > tmp_b-tmp_a:
-                tmp_b = b
-                tmp_a = a
-            if b2-a2 > tmp_b-tmp_a:
-                tmp_b = b2
-                tmp_a = a2
-        return s[tmp_a:tmp_b+1]
+        res = ""
+        for i in range(len(s)-1):
+            a = self.expen(s,i,i)
+            if len(a)>len(res):
+                res=a
+            b = self.expen(s,i,i+1)
+            if len(b)>len(res):
+                res=b
+        return res
 
 
-    def fuc(self,s,i,j):
-        while i>=0 and j<len(s) and s[i]==s[j]:
-            i=i-1
-            j=j+1
-        return i+1,j-1
+    def expen(self,s,i,j):
+        while i>=0 and j<=len(s)-1 and s[i]==s[j]:
+            i-=1
+            j+=1
+        return s[i+1:j]
 
+
+Solution().longestPalindrome("cbbd")
 
 # 动态规划  p(i,j) = p(i+1,j-1) and s[i]==s[j]
 # 略
