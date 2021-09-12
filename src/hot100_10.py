@@ -1,7 +1,7 @@
 # *coding:utf-8 *
 
 # 正则匹配
-
+# 正确的答案
 class Solution:
     def isMatch(self, s: str, p: str) -> bool:
         if len(p)==0:
@@ -18,13 +18,13 @@ class Solution:
                 return firstmatch and self.isMatch(s[1:], p[1:])
 
 
-
-
-
 print(Solution().isMatch("ss","s*"))
 
 
 
+# 错误的例子
+"aabcbcbcaccbcaabc"
+".*a*aa*.*b*.c*.*a*"
 class Solution:
     def isMatch(self, s: str, p: str) -> bool:
         if len(p)==0:
