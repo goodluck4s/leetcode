@@ -5,18 +5,21 @@ class ListNode:
 
 class Solution:
     def removeNthFromEnd(self, head, n: int):
-        dummy = ListNode(0, head)
-        first = head
-        second = dummy
-        for i in range(n):
-            first = first.next
+        if not head:
+            return None
+        res = ListNode(-1,head)
 
-        while first:
-            first = first.next
-            second = second.next
-
-        second.next = second.next.next
-        return dummy.next
+        a = head
+        b= res
+        k=0
+        while k<n-1:
+            a=a.next
+            k+=1
+        while a.next:
+            a=a.next
+            b=b.next
+        b.next = b.next.next
+        return res.next
 
 
 head = ListNode(3,None)
