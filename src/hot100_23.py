@@ -1,49 +1,92 @@
-# 23. 合并K个升序链表
-
-# 可以依赖合并两个有序链表这样  顺序合并 复杂度O(k*k*n)
-
-# 分治合并O(log(k)*k*n)  递推可以推出
+# # Definition for singly-linked list.
 class ListNode:
     def __init__(self, val=0, next=None):
         self.val = val
         self.next = next
 
+# 答案1  传统办法
+# class Solution:
+#     def mergeKLists(self, lists):
+#         if not lists:
+#             return None
+#         a = lists[0]
+#         for b in lists[1:]:
+#             a=self.func(a,b)
+#         return a
+#
+#
+#     def func(self,l1,l2):
+#         res = ListNode(-1,None)
+#         a=l1
+#         b=l2
+#         p=res
+#         while a and b:
+#             if a.val>=b.val:
+#                 p.next = b
+#                 b=b.next
+#                 p=p.next
+#             else:
+#                 p.next=a
+#                 a=a.next
+#                 p=p.next
+#         if a:
+#             p.next =a
+#         if b:
+#             p.next=b
+#         return res.next
 
+#  1n + 2n + 3n +  ...  + kn = k*k*n = O(k*k*n)
+
+
+#  答案2 分治法
 class Solution:
-    def mergeTwoLists(self, l1: ListNode, l2: ListNode) -> ListNode:
-        pre = ListNode(val=0, next=None)
-        i = l1
-        j = l2
-        head = pre
-        while i is not None or j is not None:
-            if i is None:
-                pre.next = j
-                break
-            if j is None:
-                pre.next = i
-                break
-            if i.val > j.val:
-                pre.next = j
-                j = j.next
-                pre = pre.next
-            else:
-                pre.next = i
-                i = i.next
-                pre = pre.next
-        return head.next
-
-
-
-    def mergeKLists(self, lists) -> ListNode:
-        if lists is None or len(lists)==0:
+    def mergeKLists(self, lists):
+        if not lists:
             return None
-        n = len(lists)
-        if n==1:
-            return lists[0]
+        res = self.merge(lists)
+        return res[0]
+
+    def merge(self,lists):
+
+        if len(lists)<=1:
+            return lists
         else:
-            mid=n//2
-            a = self.mergeKLists(lists[:mid])
-            b = self.mergeKLists(lists[mid:])
-            return self.mergeTwoLists(a,b)
+            mid = len(lists)//2
+            a = self.merge(lists[:mid])
+            b = self.merge(lists[mid:])
+            return self.func(a,b)
 
 
+    def func(self,l1,l2):
+        res = ListNode(-1,None)
+        a=l1[0]
+        b=l2[0]
+        p=res
+        while a and b:
+            if a.val>=b.val:
+                p.next = b
+                b=b.next
+                p=p.next
+            else:
+                p.next=a
+                a=a.next
+                p=p.next
+        if a:
+            p.next =a
+        if b:
+            p.next=b
+        return [res.next]
+
+test_case = [[1,4,5],[1,3,4],[2,6]]
+test_lists=[]
+for i in test_case:
+    res = ListNode(-1,None)
+    p=res
+    for j in i:
+        p.next = ListNode(j,None)
+        p=p.next
+    test_lists.append(res.next)
+print(len(test_lists))
+
+
+Solution().mergeKLists(test_lists)
