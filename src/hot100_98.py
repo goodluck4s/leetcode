@@ -23,13 +23,17 @@ class TreeNode:
         self.val = val
         self.left = left
         self.right = right
+
+
 import sys
+
+
 class Solution:
 
     def isValidBST(self, root: TreeNode) -> bool:
 
-        stack=[]
-        trace = -1*sys.maxsize
+        stack = []
+        trace = -1 * sys.maxsize
 
         while root or stack:
             while root:
@@ -37,9 +41,26 @@ class Solution:
                 root = root.left
 
             root = stack.pop()
-            if root.val<trace:
+            if root.val < trace:
                 return False
             trace = root.val
             root = root.right
 
         return True
+
+
+class Solution:
+
+    def isValidBST(self, root: TreeNode) -> bool:
+
+        if not root:
+            return True
+
+        def f(index, lower, upper):
+            if not index:
+                return True
+            v = index.val
+            t = lower < v and v < upper
+            return t and f(index.left, lower, v) and f(index.right, v, upper)
+
+        return f(root, float("-inf"), float("inf"))
